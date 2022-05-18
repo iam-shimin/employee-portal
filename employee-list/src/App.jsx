@@ -8,13 +8,19 @@ import "./index.css";
  * @typedef {import('../../common/services').Employee} Employee
  */
 
-const EmployeeList = ({ onItemSelect }) => {
+const EmployeeList = ({ onItemSelect, onEmptyList }) => {
   const [list, setList] = React.useState(/** @type {Employee[]} */ ([]));
 
   React.useEffect(() => {
     employeeService
       .findAll()
-      .then(setList)
+      .then(employees => {
+        if (!employees.length) {
+          onEmptyList()
+        } else {
+          setList(employees);
+        }
+      })
       .catch(() => {
         alert("Failed to load Employees!");
       });
