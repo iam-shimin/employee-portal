@@ -1,14 +1,41 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import employeeService from "../../common/services";
 import "./index.css";
 
-const App = () => (
-  <div className="container">
-    <div>Name: employee-list</div>
-    <div>Framework: react</div>
-    <div>Language: JavaScript</div>
-    <div>CSS: Empty CSS</div>
-  </div>
-);
-ReactDOM.render(<App />, document.getElementById("app"));
+/**
+ * @typedef {import('../../common/services').Employee} Employee
+ */
+
+const EmployeeList = ({ onItemSelect }) => {
+  const [list, setList] = React.useState(/** @type {Employee[]} */ ([]));
+
+  React.useEffect(() => {
+    employeeService
+      .findAll()
+      .then(setList)
+      .catch(() => {
+        alert("Failed to load Employees!");
+      });
+  });
+
+  return (
+    <ul>
+      {list.map((emp) => (
+        <li key={emp.id}>
+          <button className="list-item" onClick={() => onItemSelect(emp)}>
+            <span className="username">{emp.username}</span>
+            <span>Role: {emp.role}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export { EmployeeList };
+
+export default () => {
+  ReactDOM.render(<EmployeeList />, document.getElementById("app"));
+};

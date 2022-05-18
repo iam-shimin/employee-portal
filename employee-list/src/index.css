@@ -2,9 +2,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
-  font-size: 3rem;
-  margin: auto;
-  max-width: 800px;
-  margin-top: 20px;
+.list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item .username {
+  font-size: 1.5rem;
 }
