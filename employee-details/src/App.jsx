@@ -1,14 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import employeeService from "../../common/services";
 import "./index.css";
 
-const App = () => (
-  <div className="container">
-    <div>Name: employee-details</div>
-    <div>Framework: react</div>
-    <div>Language: JavaScript</div>
-    <div>CSS: Empty CSS</div>
+/**
+ * @typedef {import('../../common/services').Employee} Employee
+ */
+
+/**
+ * 
+ * @param {{data: Employee}} param0 
+ * @returns 
+ */
+const EmployeeDetails = ({data}) => (
+  <div>
+    <div>Username: {data.username}</div>
+    <div>Role: {data.role}</div>
+    <div>Birthday: {data.dob}</div>
   </div>
 );
-ReactDOM.render(<App />, document.getElementById("app"));
+
+export { EmployeeDetails };
+
+export default () => {
+  ReactDOM.render(<EmployeeDetails />, document.getElementById("app"));
+};
