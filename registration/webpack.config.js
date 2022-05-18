@@ -44,7 +44,9 @@ module.exports = {
       name: "registration",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        './Container': './src/App.jsx'
+      },
       shared: {
         ...deps,
         react: {
