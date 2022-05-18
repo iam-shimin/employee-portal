@@ -9,17 +9,20 @@ import "./index.css";
  */
 
 /**
- * 
- * @param {{data: Employee}} param0 
- * @returns 
+ *
+ * @param {{data: Employee}} param0
+ * @returns
  */
-const EmployeeDetails = ({data}) => (
-  <div>
-    <div>Username: {data.username}</div>
-    <div>Role: {data.role}</div>
-    <div>Birthday: {data.dob}</div>
-  </div>
-);
+const EmployeeDetails = ({ data }) =>
+  data ? (
+    <div>
+      <div>Username: {data.username}</div>
+      <div>Role: {data.role}</div>
+      <div>Birthday: {data.dob}</div>
+    </div>
+  ) : (
+    "Please Select a User!"
+  );
 
 export { EmployeeDetails };
 
