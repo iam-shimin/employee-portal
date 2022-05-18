@@ -9,10 +9,10 @@ import "./index.css";
  * @param {{name; label; type: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>['type']}} param0
  * @returns
  */
-const FieldSet = ({ name, type, label, value }) => (
+const FieldSet = ({ name, type, label, value, ...rest }) => (
   <div>
     <label htmlFor={name}>{label}</label>
-    <input type={type} name={name} id={name} value={value} />
+    <input type={type} name={name} id={name} value={value} {...rest} />
   </div>
 );
 
@@ -58,6 +58,7 @@ const RegistrationPage = () => {
         type="password"
         label="Password"
         value={data.password}
+        autoComplete="new-password"
       />
 
       <div>
