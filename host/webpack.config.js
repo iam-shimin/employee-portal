@@ -43,7 +43,11 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        signup: 'registration@http://localhost:8075/remoteEntry.js',
+        'employees': 'employee_list@http://localhost:8076/remoteEntry.js',
+        'employee': 'employee_details@http://localhost:8077/remoteEntry.js',
+      },
       exposes: {},
       shared: {
         ...deps,
