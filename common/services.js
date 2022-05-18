@@ -25,12 +25,26 @@ async function findAll() {
 
 /**
  *
- * @param {Omit<Employee, 'id'>} employee
+ * @param {Omit<Employee, 'id' | 'role'>} employee
  */
 async function addEmployee(employee) {
+  if (!employee || !employee.username || !employee.password)
+    throw new Error("Bad Request!");
+
   const id = Date.now();
-  const employeeObject = { ...employee, id };
+  const employeeObject = { ...employee, id, role: "User" };
   const employees = await findAll();
+
+  const match = employees.find(
+    (emp) => emp.email === employee.email || emp.username === employee.username
+  );
+  if (match)
+    throw new Error(
+      match.email === employee.email
+        ? "Email Already Exist!"
+        : "Username Already Exist!"
+    );
+
   employees.push(employeeObject);
   localStorage.setItem(key, JSON.stringify(employees));
 
@@ -51,8 +65,23 @@ async function findBy(criteria) {
   );
 }
 
-export default {
-    findAll,
-    findBy,
-    addEmployee
+if (!localStorage.getItem(key)) {
+  /** @type {Employee[]} */
+  const seed = [
+    {
+      username: "admin",
+      dob: "",
+      email: "",
+      id: 0,
+      password: "",
+      role: "Super Admin",
+    },
+  ];
+  localStorage.setItem(key, JSON.stringify(seed));
 }
+
+export default {
+  findAll,
+  findBy,
+  addEmployee,
+};
